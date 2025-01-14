@@ -24,10 +24,6 @@ The project is designed to work with Intel TDX (Trust Domain Extensions), provid
 
 The main proof logic is implemented in `my_proof/proof.py`. To customize it, update the `Proof.generate()` function to change how input files are processed.
 
-The proof can be configured using environment variables:
-
-- `USER_EMAIL`: The email address of the data contributor, to verify data ownership
-
 ## Local Development
 
 To setup venv and install dependencies:
@@ -46,19 +42,14 @@ docker build -t my-proof .
 ```
 
 ```bash
-docker run --rm --volume $(pwd)/input:/input --volume $(pwd)/output:/output -e AWS_ACCESS_KEY_ID=<your-access-key-id> -e AWS_SECRET_ACCESS_KEY=<your-secret-access-key> my-proof
+docker run --rm --volume "$(pwd)/inputs:/inputs" --volume "$(pwd)/output:/output" my-proof
 ```
+
+Remember to populate the `/input` directory with the files you want to process.
 
 ## Running with Intel TDX
 
 Intel TDX (Trust Domain Extensions) provides hardware-based memory encryption and integrity protection for virtual machines. To run this container in a TDX-enabled environment, follow your infrastructure provider's specific instructions for deploying confidential containers.
 
-Common volume mounts and environment variables:
-
-```bash
-docker run --rm --volume /path/to/input:/input --volume /path/to/output:/output -e AWS_ACCESS_KEY_ID=<your-access-key-id> -e AWS_SECRET_ACCESS_KEY=<your-secret-access-key> my-proof
-```
-
-Remember to populate the `/input` directory with the files you want to process.
 
 [MIT License](LICENSE)

@@ -120,6 +120,8 @@ class TwitterDataValidator:
         handle = data.get("handle", "")
         description = data.get("description", "")
         followers = data.get("followers", [])
+        ranking = data.get("ranking", {})
+        tweets = data.get("tweets", [])
         
         # Run all checks
         checks = [
@@ -137,7 +139,13 @@ class TwitterDataValidator:
         # Calculate weighted average
         weights = [0.2, 0.1, 0.1, 0.5, 0.1]  # Adjusted weights
         final_score = sum(score * weight for (_, score), weight in zip(checks, weights))
-        
+        if ranking:
+            final_score += 0.1
+        if tweets:
+            final_score += 0.1
+
+        final_score = min(final_score, 1.0)
+
         print(f"\nFinal weighted score: {final_score:.3f}")
         
         # If score is too low, return -1 to indicate invalid data, base score if valid and no followers is 0.2

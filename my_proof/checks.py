@@ -140,8 +140,8 @@ class TwitterDataValidator:
         
         print(f"\nFinal weighted score: {final_score:.3f}")
         
-        # If score is too low, return -1 to indicate invalid data, base score if valid and no followers is 0.4
-        if final_score < 0.35:
+        # If score is too low, return -1 to indicate invalid data, base score if valid and no followers is 0.2
+        if final_score < 0.15:
             print("Failed validation - returning -1")
             return -1
             
